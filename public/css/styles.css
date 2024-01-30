@@ -1,0 +1,41 @@
+/* .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+} */
+
+.genre-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.movie-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.movie-item img.movie-thumbnail {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.movie-title h3 {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.movie-credits p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
