@@ -1,57 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ movie.title }}{% endblock %}
+{% block title %}
+	{{ movie.title }}
+{% endblock %}
 
 {% block body %}
 
 
-    <div class="movie-detail">
-        <h1>{{ movie.title }}</h1>
+	<div class="movie-detail">
+		<h1>{{ movie.title }}</h1>
 
-        <div class="movie-meta">
-            <span><strong>Release Year:</strong> {{ movie['plprogram$year'] }}</span>
-        </div>
+		<div class="movie-meta">
+			<span>
+				{% if ( movie['plprogram$year'] is defined ) %}
+					<strong>Release Year:</strong>
+					{{ movie['plprogram$year'] }}</span>
+			{% endif %}
+		</div>
 
-        <img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-cover">
+		{% if movie['plprogram$thumbnails'] is defined %}
 
-            {% if movie['plprogram$thumbnails']['orig-720x1280'] %}
-            <div class="movie-backdrop" style="background-image: url('{{ movie['plprogram$thumbnails']['orig-720x1280']['plprogram$url'] }}');"></div>
-        {% endif %}
 
-        <p class="movie-description">{{ movie.description }}</p>
+			{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
+				<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-cover">
+			{% endif %}
 
-        <div class="movie-genres">
-            <strong>Genres:</strong>
-            {% for tag in movie['plprogram$tags'] %}
-                {% if tag['plprogram$scheme'] == 'genre' %}
-                    {{ tag['plprogram$title'] }}{% if not loop.last %}, {% endif %}
-                {% endif %}
-            {% endfor %}
-        </div>
+			{% if movie['plprogram$thumbnails']['orig-720x1280'] %}
+				<div class="movie-backdrop" style="background-image: url('{{ movie['plprogram$thumbnails']['orig-720x1280']['plprogram$url'] }}');"></div>
+			{% endif %}
 
-        <div class="movie-credits">
-            <strong>Director:</strong>
-            {% for credit in movie['plprogram$credits'] %}
-                {% if credit['plprogram$creditType'] == 'director' %}
-                    {{ credit['plprogram$personName'] }}
-                {% endif %}
-            {% endfor %}
-            <br>
-            <strong>Actors:</strong>
-            {% for credit in movie['plprogram$credits'] %}
-                {% if credit['plprogram$creditType'] == 'actor' %}
-                        {{ credit['plprogram$personName'] }}{% if not loop.last %}, {% endif %}
-                {% endif %}
-            {% endfor %}
-        </div>
+		{% endif %}
+		<p class="movie-description">{{ movie.description }}</p>
+        
+		<div class="movie-genres">
+			<strong>Genres:</strong>
+			{% for tag in movie['plprogram$tags'] %}
+				{% if tag['plprogram$scheme'] == 'genre' %}
+					{{ tag['plprogram$title'] }}
+					{% if not loop.last %},
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</div>
 
-        {% if movie['plprogramavailability$media'] %}
-            <div class="movie-trailer">
-                {% for media in movie['plprogramavailability$media'] %}
-                    <iframe width="560" height="315" src="{{ media['plmedia$publicUrl'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
+		<div class="movie-credits">
+			<strong>Director:</strong>
+			{% for credit in movie['plprogram$credits'] %}
+				{% if credit['plprogram$creditType'] == 'director' %}
+					{{ credit['plprogram$personName'] }}
+				{% endif %}
+			{% endfor %}
+			<br>
+			<strong>Actors:</strong>
+			{% for credit in movie['plprogram$credits'] %}
+				{% if credit['plprogram$creditType'] == 'actor' %}
+					{{ credit['plprogram$personName'] }}
+					{% if not loop.last %},
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</div>
+
+		{% if movie['plprogramavailability$media'] %}
+			<div class="movie-trailer">
+				{% for media in movie['plprogramavailability$media'] %}
+					<iframe width="560" height="315" src="{{ media['plmedia$publicUrl'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
 
 {% endblock %}

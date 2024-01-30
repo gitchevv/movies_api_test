@@ -1,8 +1,6 @@
-{# templates/movie/homepage.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Homepage
+{% block title %}Movie Genres
 {% endblock %}
 
 {% block body %}
@@ -37,7 +35,7 @@
 						<div class="movie-title">
 							<h2>{{ movie.title }}</h2>
 						</a>
-							
+
 							{# Check if the user is logged in #}
 							{% if is_granted('ROLE_USER') %}
 								<p>

@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    Genre Page
-{% endblock %}
+{% block title %}All Movies{% endblock %}
 {% block body %}
-    <h2>{{ pagination.getTotalItemCount }} movies in {{ genreName }}</h2>
-	
+    
     <div class="genre-section">
         {% for movie in pagination %}
             {% if movie.id is defined %}
@@ -16,7 +13,7 @@
                             <img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
                         {% endif %}
                         <div class="movie-title">
-                            <h2>{{ movie.title }}</h2>
+                            <h3>{{ movie.title }}</h3> <!-- Ensure this line uses <h3> based on your CSS -->
                         </div>
                     </a>
                     {% if is_granted('ROLE_USER') %}
