@@ -20,6 +20,7 @@ class MovieController extends AbstractController
         $this->apiClient = $apiClient;
     }
 
+    //Route for home (movie list)
     #[Route('/', name: "home")]
     public function getAllMovies(PaginatorInterface $paginator, Request $request, MovieApi $apiClient): Response
     {
@@ -27,10 +28,10 @@ class MovieController extends AbstractController
 
         $pagination = $paginator->paginate(
             $movies['entries'], // the array to paginate
-            $request->query->getInt('page', 1),          
-            10          
+            $request->query->getInt('page', 1),
+            10
         );
-        
+
         return $this->render('movies/movie-list.html.twig', [
             'movie' => $movies,
             'pagination' => $pagination
@@ -38,9 +39,10 @@ class MovieController extends AbstractController
         ]);
     }
 
+    // Genres page
     #[Route('/genres', name: 'genres')]
     public function getGenres(MovieApi $apiClient): Response
-    {   
+    {
         $genres = ['Action', 'Comedy', 'Thriller', 'War', 'Romance', 'Drama', 'Crime', 'Documentary', 'Horror'];
         $moviesByGenre = [];
 
@@ -56,6 +58,7 @@ class MovieController extends AbstractController
         ]);
     }
 
+    // Movies in genre
     #[Route('/genre/{genre}', name: "genre_list")]
     public function genreDetail(PaginatorInterface $paginator, Request $request, string $genre, MovieApi $apiClient)
     {
@@ -63,7 +66,7 @@ class MovieController extends AbstractController
         $genreDetails = $apiClient->fetchMoviesByGenre($genre, -1);
         $moviesInGenre = $genreDetails['entries'];
 
-        
+
         $count = count($moviesInGenre);
 
         $pagination = $paginator->paginate(
@@ -94,72 +97,4 @@ class MovieController extends AbstractController
             'movie' => $movie,
         ]);
     }
-
-
-
-    // #[Route('/test', name: 'test')]
-    // public function test(MovieApi $apiClient): Response
-    // {
-    //     $allMovies = $apiClient->fetchMovies();
-    //     $moviesByGenre = $this->organizeMoviesByGenre($allMovies['entries']);
-    //     dd($moviesByGenre);
-
-    //     return $this->render('movies/test.html.twig', [
-    //         'moviesByGenre' => $moviesByGenre,
-    //     ]);
-    // }
-
-    // private function organizeMoviesByGenre(array $movies): array
-    // {
-    //     $genreList = ['Action', 'Comedy', 'Thriller', 'War', 'Romance', 'Drama', 'Crime', 'Documentary', 'Horror'];
-    //     $moviesByGenre = [];
-
-    //     // Initialize each genre in the list with an empty array
-    //     foreach ($genreList as $genre) {
-    //         $moviesByGenre[$genre] = [];
-    //     }
-
-    //     foreach ($movies as $movie) {
-    //         // Extract the genres from the tags
-    //         $tags = $movie['plprogram$tags'] ?? [];
-
-    //         foreach ($tags as $tag) {
-    //             $genreName = $tag['plprogram$title'] ?? '';
-
-    //             // Check if the tag's title is in our list of genres
-    //             if (in_array($genreName, $genreList)) {
-    //                 // If yes, add the movie to the corresponding genre
-    //                 $moviesByGenre[$genreName][] = $movie;
-    //             }
-    //         }
-    //     }
-
-    //     return $moviesByGenre;
-    // }
-
-
-
-    // #[Route('/movies', name: 'movie_list')]
-    // public function list(): Response
-    // {
-    //     $fetchAll = $this->apiClient->fetchMovies();
-    //     $movies = $fetchAll['entries'];
-    //     $moviesCollection = [];
-
-    //     foreach ($movies as $movie) {
-
-    //         if ($movie['plprogram$scheme'] == 'genre') {
-    //             foreach ($movie['plprogram$tags'] as $tags) {
-
-    //                 var_dump($tags);
-    //                 $movieCollection[$tags['plprogram$title']] = $tags['plprogram$title'];
-
-    //             }
-    //         }
-
-
-    //     }
-
-    //     dd($moviesCollection);
-    // }
 }

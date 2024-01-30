@@ -9,7 +9,7 @@
 	{% for genre, movies in moviesByGenre %}
 
 		{# Display genre name and number of movies in that genre #}
-		{#  #}
+		
 			<h2>
 				<a href="{{ path('genre_list', {'genre': genre }) }}"> {{ genre }}
 			</a>
@@ -19,10 +19,8 @@
 			class="genre-section">
 			{# Loop over the movies array and display the fields we want #}
 			{% for movie in movies %}
-
-
 				<div class="movie-item">
-					{# Get id from the API field id and convert to array where the movie Id is the last element #}
+					{# Get movie id from the API field id and convert to array where the movie Id is the last element #}
 					{# We use that Id to link the pages in the web app and also to request a single movie from the api #}
 					{% set movieId =  movie.id|split('/') %}
 						<a
@@ -52,6 +50,7 @@
 								<strong>Starring:</strong>
 								{% set actors = [] %}
 								{% set director = '' %}
+								{# Find actors and director in the nested arrays #}
 								{% for credit in movie['plprogram$credits'] %}
 									{% if credit['plprogram$creditType'] == 'actor' %}
 										{% set actors = actors|merge([credit['plprogram$personName']]) %}

@@ -21,12 +21,13 @@ class MovieApi
     public function fetchMovies(): array
     {
 
-        $cacheKey = 'all_movies'; 
+        $cacheKey = 'all_movies';
 
+        // return the cached response if any 
+        // otherwise make the api call
         return $this->cache->get($cacheKey, function (ItemInterface $item) {
-            $item->expiresAfter(3600); 
+            $item->expiresAfter(3600);
 
-            
             $response = $this->client->request('GET', 'https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas?form=json&byProgramType=movie');
 
             return $response->toArray();
@@ -40,8 +41,6 @@ class MovieApi
 
         return $response->toArray();
     }
-
-
 
     public function fetchMoviesByGenre(string $genre, int $limit = 10): array
     {

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{# Main template #}
+{# All the other templates are more or less the same with slight variations #}
 {% block title %}All Movies{% endblock %}
 {% block body %}
-    
+    {# Loop over the paginated array of movies #}
     <div class="genre-section">
         {% for movie in pagination %}
             {% if movie.id is defined %}
@@ -19,6 +20,7 @@
 
                         </div>
                     </a>
+                    {# Show if user is logged #}
                     {% if is_granted('ROLE_USER') %}
                         <p>
                             <form action="{{ path('add_to_wishlist', {'id': movieId|last}) }}" method="post">

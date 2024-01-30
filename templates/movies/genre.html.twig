@@ -4,8 +4,9 @@
     Genre Page
 {% endblock %}
 {% block body %}
+	{# Loop over the pagination array instead of the movie because it already contains the movies #}
     <h2>{{ pagination.getTotalItemCount }} movies in {{ genreName }}</h2>
-
+	
     <div class="genre-section">
         {% for movie in pagination %}
             {% if movie.id is defined %}

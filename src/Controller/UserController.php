@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
+
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -16,7 +17,7 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // Last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        
         return $this->render(
             'user/login.html.twig', 
             [
