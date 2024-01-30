@@ -18,6 +18,8 @@
 						{# if we dont get image response with that size  #}
 						{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
 							<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
+					{% endif %}
+
 						</a>
 						<div class="movie-title">
 							<h2>{{ movie.title }}</h2>
@@ -44,7 +46,6 @@
 									{{ director }}</p>
 							</div>
 						</span>
-					{% endif %}
 				</div>
 			{% endif %}
 		
