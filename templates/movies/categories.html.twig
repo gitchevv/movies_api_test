@@ -4,67 +4,68 @@
 {% endblock %}
 
 {% block body %}
-{% set movieCount = 0 %}
+	{% set movieCount = 0 %}
 
 	{% for genre, movies in moviesByGenre %}
 
 		{# Display genre name and number of movies in that genre #}
 		{#  #}
-		<h2>
-			<a href="{{ path('genre_list', {'genre': genre }) }}">
-				{{ genre }}
+			<h2>
+				<a href="{{ path('genre_list', {'genre': genre }) }}"> {{ genre }}
 			</a>
 			({{ movies|length }})
 		</h2>
-		<div class="genre-section">
+		<div
+			class="genre-section">
 			{# Loop over the movies array and display the fields we want #}
 			{% for movie in movies %}
-			
-				
+
+
 				<div class="movie-item">
 					{# Get id from the API field id and convert to array where the movie Id is the last element #}
 					{# We use that Id to link the pages in the web app and also to request a single movie from the api #}
 					{% set movieId =  movie.id|split('/') %}
 						<a
 						href="{{ path('single_movie', {'id': movieId|last}) }}"> {# if we dont get image response with that size  #}
-							{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
-
+						{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
 							<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
-							{% endif %}
+						{% else %}
+							<img src="{{ asset('images/NAN.jpeg') }}" alt="No Image Available" class="movie-thumbnail">
+						{% endif %}
 
 						<div class="movie-title">
 							<h2>{{ movie.title }}</h2>
 						</a>
 
-							{# Check if the user is logged in #}
-							{% if is_granted('ROLE_USER') %}
-								<p>
-									<form action="{{ path('add_to_wishlist', {'id': movieId|last}) }}" method="post">
-										<button type="submit">Add to Wishlist</button>
-									</form>
+						{# Check if the user is logged in #}
+						{% if is_granted('ROLE_USER') %}
+							<p>
+								<form action="{{ path('add_to_wishlist', {'id': movieId|last}) }}" method="post">
+									<button type="submit">Add to Wishlist</button>
+								</form>
 							{% endif %}
-							</p>
-						</div>
-						<span>
-							<div class="movie-credits">
-								<p>
-									<strong>Starring:</strong>
-									{% set actors = [] %}
-									{% set director = '' %}
-									{% for credit in movie['plprogram$credits'] %}
-										{% if credit['plprogram$creditType'] == 'actor' %}
-											{% set actors = actors|merge([credit['plprogram$personName']]) %}
-										{% elseif credit['plprogram$creditType'] == 'director' %}
-											{% set director = credit['plprogram$personName'] %}
-										{% endif %}
-									{% endfor %}
-									{{ actors|join(', ') }}</p>
-								<p>
-									<strong>Director:</strong>
-									{{ director }}</p>
-							</div>
-						</span>
+						</p>
 					</div>
+					<span>
+						<div class="movie-credits">
+							<p>
+								<strong>Starring:</strong>
+								{% set actors = [] %}
+								{% set director = '' %}
+								{% for credit in movie['plprogram$credits'] %}
+									{% if credit['plprogram$creditType'] == 'actor' %}
+										{% set actors = actors|merge([credit['plprogram$personName']]) %}
+									{% elseif credit['plprogram$creditType'] == 'director' %}
+										{% set director = credit['plprogram$personName'] %}
+									{% endif %}
+								{% endfor %}
+								{{ actors|join(', ') }}</p>
+							<p>
+								<strong>Director:</strong>
+								{{ director }}</p>
+						</div>
+					</span>
+				</div>
 			{% else %}
 				<div>No movies found in
 					{{ genre }}.</div>

@@ -11,9 +11,12 @@
                     <a href="{{ path('single_movie', {'id': movieId|last}) }}">
                         {% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
                             <img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
+                        {% else %}
+                            <img src="{{ asset('images/NAN.jpeg') }}" alt="No Image Available" class="movie-thumbnail">
                         {% endif %}
                         <div class="movie-title">
-                            <h3>{{ movie.title }}</h3> <!-- Ensure this line uses <h3> based on your CSS -->
+                            <h3>{{ movie.title }}</h3>
+
                         </div>
                     </a>
                     {% if is_granted('ROLE_USER') %}
@@ -44,6 +47,12 @@
                                     {% endif %}
                                 {% endfor %}
                                 {{ director }}
+                            </p>
+                            <p>
+                                {% if movie['tdc$imdbId'] is defined %}
+                                <a href="https://www.imdb.com/title/{{ movie['tdc$imdbId'] }}" target="_blank">IMDb
+                                <i class="fas fa-external-link-alt"></i></a>
+                            {% endif %}
                             </p>
                         </div>
                     </span>

@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
     <h2>{{ pagination.getTotalItemCount }} movies in {{ genreName }}</h2>
-	
+
     <div class="genre-section">
         {% for movie in pagination %}
             {% if movie.id is defined %}
@@ -14,6 +14,8 @@
                     <a href="{{ path('single_movie', {'id': movieId|last}) }}">
                         {% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
                             <img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
+                        {% else %}
+                            <img src="{{ asset('images/NAN.jpeg') }}" alt="No Image Available" class="movie-thumbnail">
                         {% endif %}
                         <div class="movie-title">
                             <h2>{{ movie.title }}</h2>

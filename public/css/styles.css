@@ -1,10 +1,4 @@
-/* .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-} */
-
+/* Genre Section */
 .genre-section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -12,13 +6,14 @@
     padding: 20px;
 }
 
+/* Movie Items */
 .movie-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
     padding: 10px;
-    background: #fff;
+    background: #f0f0f0; /* Lighter background for contrast */
     border-radius: 8px;
 }
 
@@ -32,56 +27,70 @@
 .movie-title h3 {
     margin: 10px 0;
     text-align: center;
+    color: #333; /* Darker text for better readability */
 }
 
+/* Movie Credits */
 .movie-credits p {
     font-size: 0.9rem;
     text-align: center;
+    color: #666; /* Subdued text color */
 }
 
-/* Pagination Container */
+/* Pagination Styling */
 .pagination {
     display: flex;
     justify-content: center;
     padding: 20px;
 }
 
-/* Pagination List */
 .pagination ul {
     list-style: none;
     padding: 0;
     display: flex;
-    gap: 10px; /* Adjust the gap between pagination links */
+    gap: 10px; 
 }
 
-/* Pagination List Items */
 .pagination li {
-    border: 1px solid #ddd; /* Border color for pagination items */
-    border-radius: 5px; /* Rounded corners for pagination items */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
 }
 
-/* Pagination Links */
 .pagination a {
     display: block;
     padding: 8px 12px;
     text-decoration: none;
-    color: #007bff; /* Link color */
+    color: #0056b3; /* Vibrant link color */
 }
 
 .pagination a:hover {
-    background-color: #f8f9fa; /* Background color on hover */
+    background-color: #eee; /* Subtle hover background */
 }
 
-/* Active Pagination Link */
 .pagination .current {
-    background-color: #007bff; /* Background color for the active page */
-    color: white; /* Text color for the active page */
-    border-color: #007bff; /* Border color for the active page */
+    background-color: #0056b3; /* Vibrant active page background */
+    color: white; 
+    border-color: #0056b3;
 }
 
-/* Disabled Pagination Links */
 .pagination .disabled {
-    color: #6c757d; /* Text color for disabled links */
+    color: #bbb; /* Subdued color for disabled links */
     pointer-events: none;
-    background-color: #fff; /* Background color for disabled links */
+    background-color: #fff; 
+}
+
+/* Button Styling */
+button {
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #ff4081; /* Vibrant button background */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #e81e62; /* Slightly darker shade for hover */
 }

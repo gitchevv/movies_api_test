@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wishlist{% endblock %}
+{% block title %}Wishlist
+{% endblock %}
 
 {% block body %}
-        <h1>Hello User!</h1>
-        <h3>Your wishlist has {{ wishlist|length }} titles.</h3>
-    
+	<h1>Hello User!</h1>
+	<h3>Your wishlist has
+		{{ wishlist|length }}
+		titles.</h3>
+
 	<div class="genre-section">
-	
-	{% for movie in wishlist %}
+
+		{% for movie in wishlist %}
 			{# Get id from the API field id and convert to array where the movie Id is the last element #}
 			{# We use that Id to link the pages in the web app and also to request a single movie from the api #}
 				{% if (movie.id is defined) %}
@@ -18,39 +21,40 @@
 						{# if we dont get image response with that size  #}
 						{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
 							<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
-					{% endif %}
-						
-						</a>
-						<div class="movie-title">
-							<h2>{{ movie.title }}</h2>
-                            <form action="{{ path('delete_from_wishlist', {'id': movieId|last }) }}" method="post">
-                                    <button type="submit">Remove</button>
-							</form>
+						{% else %}
+							<img src="{{ asset('images/NAN.jpeg') }}" alt="No Image Available" class="movie-thumbnail">
+						{% endif %}
+
+					</a>
+					<div class="movie-title">
+						<h2>{{ movie.title }}</h2>
+						<form action="{{ path('delete_from_wishlist', {'id': movieId|last }) }}" method="post">
+							<button type="submit">Remove</button>
+						</form>
+					</div>
+					<span>
+						<div class="movie-credits">
+							<p>
+								<strong>Starring:</strong>
+								{% set actors = [] %}
+								{% set director = '' %}
+								{% for credit in movie['plprogram$credits'] %}
+									{% if credit['plprogram$creditType'] == 'actor' %}
+										{% set actors = actors|merge([credit['plprogram$personName']]) %}
+									{% elseif credit['plprogram$creditType'] == 'director' %}
+										{% set director = credit['plprogram$personName'] %}
+									{% endif %}
+								{% endfor %}
+								{{ actors|join(', ') }}</p>
+							<p>
+								<strong>Director:</strong>
+								{{ director }}</p>
 						</div>
-						<span>
-							<div class="movie-credits">
-								<p>
-									<strong>Starring:</strong>
-									{% set actors = [] %}
-									{% set director = '' %}
-									{% for credit in movie['plprogram$credits'] %}
-										{% if credit['plprogram$creditType'] == 'actor' %}
-											{% set actors = actors|merge([credit['plprogram$personName']]) %}
-										{% elseif credit['plprogram$creditType'] == 'director' %}
-											{% set director = credit['plprogram$personName'] %}
-										{% endif %}
-									{% endfor %}
-									{{ actors|join(', ') }}</p>
-								<p>
-									<strong>Director:</strong>
-									{{ director }}</p>
-							</div>
-						</span>
+					</span>
 				</div>
 			{% endif %}
-		
 
 
-	{% endfor %}
+		{% endfor %}
 	</div>
 {% endblock %}

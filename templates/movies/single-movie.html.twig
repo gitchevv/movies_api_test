@@ -22,7 +22,9 @@
 
 
 			{% if movie['plprogram$thumbnails']['orig-460x320'] is defined %}
-				<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-cover">
+				<img src="{{ movie['plprogram$thumbnails']['orig-460x320']['plprogram$url'] }}" class="movie-thumbnail">
+			{% else %}
+				<img src="{{ asset('images/NAN.jpeg') }}" alt="No Image Available" class="movie-thumbnail">
 			{% endif %}
 
 			{% if movie['plprogram$thumbnails']['orig-720x1280'] %}
@@ -31,7 +33,7 @@
 
 		{% endif %}
 		<p class="movie-description">{{ movie.description }}</p>
-        
+
 		<div class="movie-genres">
 			<strong>Genres:</strong>
 			{% for tag in movie['plprogram$tags'] %}
