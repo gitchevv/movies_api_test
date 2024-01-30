@@ -10,4 +10,5 @@
 # test login:
 # user/1234
 
-
+# user login and wishlist is store in session 
+# no database is needed
