@@ -55,4 +55,12 @@ class MovieApi
             return $response->toArray();
         });
     }
+
+    // get a single movie by id
+    public function fetchNewReleases(): array
+    {
+        $response = $this->client->request('GET', "https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas/?form=json&byYear=2023&range=1-25");
+
+        return $response->toArray();
+    }
 }

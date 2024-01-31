@@ -11,9 +11,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     padding: 10px;
-    background: #f0f0f0; /* Lighter background for contrast */
+    background: #f0f0f0; 
     border-radius: 8px;
 }
 
@@ -27,14 +27,14 @@
 .movie-title h3 {
     margin: 10px 0;
     text-align: center;
-    color: #333; /* Darker text for better readability */
+    color: #333; 
 }
 
 /* Movie Credits */
 .movie-credits p {
     font-size: 0.9rem;
     text-align: center;
-    color: #666; /* Subdued text color */
+    color: #666; 
 }
 
 /* Pagination Styling */
@@ -60,21 +60,21 @@
     display: block;
     padding: 8px 12px;
     text-decoration: none;
-    color: #0056b3; /* Vibrant link color */
+    color: #0056b3; 
 }
 
 .pagination a:hover {
-    background-color: #eee; /* Subtle hover background */
+    background-color: #eee;
 }
 
 .pagination .current {
-    background-color: #0056b3; /* Vibrant active page background */
+    background-color: #0056b3; 
     color: white; 
     border-color: #0056b3;
 }
 
 .pagination .disabled {
-    color: #bbb; /* Subdued color for disabled links */
+    color: #bbb; 
     pointer-events: none;
     background-color: #fff; 
 }
@@ -83,7 +83,7 @@
 button {
     font-size: 0.9rem;
     color: #fff;
-    background-color: #ff4081; /* Vibrant button background */
+    background-color: #ff4081;
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
@@ -92,5 +92,13 @@ button {
 }
 
 button:hover {
-    background-color: #e81e62; /* Slightly darker shade for hover */
+    background-color: #e81e62;
 }
+
+.site-footer {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+

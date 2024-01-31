@@ -70,9 +70,9 @@ class MovieController extends AbstractController
         $count = count($moviesInGenre);
 
         $pagination = $paginator->paginate(
-            $moviesInGenre, // the array to paginate
-            $request->query->getInt('page', 1),          // current page number
-            10          // limit of results per page
+            $moviesInGenre, 
+            $request->query->getInt('page', 1),          
+            10          
         );
 
         return $this->render('movies/genre.html.twig', [
@@ -89,12 +89,26 @@ class MovieController extends AbstractController
     {
         $movie = $apiClient->fetchMovieById($id);
 
-        if (!$movie) {
-            throw $this->createNotFoundException('The movie does not exist');
-        }
-
         return $this->render('movies/single-movie.html.twig', [
             'movie' => $movie,
+        ]);
+    }
+
+    
+    #[Route('/new_releases', name: "new_releases")]
+    public function newReleases(MovieApi $apiClient, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        $new_releases = $apiClient->fetchNewReleases();
+
+        $pagination = $paginator->paginate(
+            $new_releases['entries'], 
+            $request->query->getInt('page', 1),          
+            10          
+        );
+        
+        return $this->render('movies/new-releases.html.twig', [
+            'pagination' => $pagination,
         ]);
     }
 }

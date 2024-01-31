@@ -17,7 +17,7 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // Last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        
+
         return $this->render(
             'user/login.html.twig', 
             [
@@ -30,6 +30,6 @@ class UserController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout()
     {
-        // Symfony handles the logout logic so no implementation is needed.
+        // Symfony handles the logout logic.
     }
 }
